@@ -30,7 +30,10 @@ public class JedisAdapter implements InitializingBean{
     }
 
     public static void main(String[] args) {
-        Jedis jedis = new Jedis("redis://localhost:6379/9");  //默认连接本地的6379端口，也可以指点，这里指定第9个数据库（共16个）
+        JedisPool jedisPool = new JedisPool("redis://39.106.40.113:6379");
+        //Jedis jedis = new Jedis("redis://39.106.40.113:6379/9");  //默认连接本地的6379端口，也可以指点，这里指定第9个数据库（共16个）
+        Jedis jedis = jedisPool.getResource();
+        jedis.auth("liuyang");
         //jedis.flushAll(); //把所有数据库删掉
         //jedis.flushDB(); //把数据库删掉
 
@@ -189,13 +192,15 @@ public class JedisAdapter implements InitializingBean{
      */
     @Override
     public void afterPropertiesSet() throws Exception {
-        jedisPool = new JedisPool("redis://localhost:6379/9");
+        //jedisPool = new JedisPool("redis://localhost:6379/9");
+        jedisPool = new JedisPool("redis://39.106.40.113:6379");
     }
 
     public long sadd(String key, String value){
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
+            jedis.auth("liuyang");
             return jedis.sadd(key, value);
         }catch (Exception e){
             logger.error("发生异常" + e.getMessage() );
@@ -211,6 +216,7 @@ public class JedisAdapter implements InitializingBean{
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
+            jedis.auth("liuyang");
             return jedis.srem(key, value);
         }catch (Exception e){
             logger.error("发生异常" + e.getMessage() );
@@ -226,6 +232,7 @@ public class JedisAdapter implements InitializingBean{
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
+            jedis.auth("liuyang");
             return jedis.scard(key);
         }catch (Exception e){
             logger.error("发生异常" + e.getMessage() );
@@ -241,6 +248,7 @@ public class JedisAdapter implements InitializingBean{
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
+            jedis.auth("liuyang");
             return jedis.sismember(key, value);
         }catch (Exception e){
             logger.error("发生异常" + e.getMessage() );
@@ -255,6 +263,7 @@ public class JedisAdapter implements InitializingBean{
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
+            jedis.auth("liuyang");
             return jedis.brpop(timeout, key);
         } catch (Exception e) {
             logger.error("发生异常" + e.getMessage());
@@ -270,6 +279,7 @@ public class JedisAdapter implements InitializingBean{
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
+            jedis.auth("liuyang");
             return jedis.lpush(key, value);
         } catch (Exception e) {
             logger.error("发生异常" + e.getMessage());
@@ -322,6 +332,7 @@ public class JedisAdapter implements InitializingBean{
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
+            jedis.auth("liuyang");
             return jedis.zadd(key, score, value);
         } catch (Exception e) {
             logger.error("发生异常" + e.getMessage());
@@ -337,6 +348,7 @@ public class JedisAdapter implements InitializingBean{
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
+            jedis.auth("liuyang");
             return jedis.zrange(key, start, end);
         } catch (Exception e) {
             logger.error("发生异常" + e.getMessage());
@@ -352,6 +364,7 @@ public class JedisAdapter implements InitializingBean{
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
+            jedis.auth("liuyang");
             return jedis.zrevrange(key, start, end);
         } catch (Exception e) {
             logger.error("发生异常" + e.getMessage());
@@ -367,6 +380,7 @@ public class JedisAdapter implements InitializingBean{
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
+            jedis.auth("liuyang");
             return jedis.zcard(key);
         } catch (Exception e) {
             logger.error("发生异常" + e.getMessage());
@@ -382,6 +396,7 @@ public class JedisAdapter implements InitializingBean{
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
+            jedis.auth("liuyang");
             return jedis.zscore(key, member);
         } catch (Exception e) {
             logger.error("发生异常" + e.getMessage());
