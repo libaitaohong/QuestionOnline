@@ -91,6 +91,18 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<url>http://47.93.11.196:9080/manager/text</url>
+					<server>Tomcat8</server>
+					<path>/ROOT</path>
+					<charset>utf8</charset>
+					<update>true</update>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
