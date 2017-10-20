@@ -48,6 +48,8 @@ public class HomeController {
             ViewObject vo = new ViewObject();
             vo.set("question", question);
             vo.set("user", userService.getUser(question.getUserId()));
+            logger.info("userid:{}",userService.getUser(question.getUserId()));
+            logger.info("questid:{}",question.getId());
             vo.set("followCount",followService.getFollowerCount(EntityType.ENTITY_QUESTION,question.getId()));
             vos.add(vo);
         }
